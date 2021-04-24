@@ -10,6 +10,7 @@
       - yellow
       - black
       - white
+    maxturns: 12
   tasks:
     - name: Select the colour of four pegs.
       include_tasks: peg-colour.yml
@@ -17,3 +18,14 @@
       loop_control:
         loop_var: peg_number
       when: pegs is not defined
+
+    - name: Increase turn number.
+      set_fact:
+        turns: "{{ turns | default(0) | int + 1 }}"
+        cacheable: yes
+
+    - name: It's the end!
+      file:
+        path: .facts/localhost
+        state: absent
+      when: 'turns | int == maxturns'
