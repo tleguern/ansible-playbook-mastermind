@@ -1,0 +1,19 @@
+---
+- hosts: localhost
+  gather_facts: no
+  connection: local
+  vars:
+    colours:
+      - red
+      - green
+      - blue
+      - yellow
+      - black
+      - white
+  tasks:
+    - name: Select the colour of four pegs.
+      include_tasks: peg-colour.yml
+      loop: [ 0, 1, 2, 3 ]
+      loop_control:
+        loop_var: peg_number
+      when: pegs is not defined
