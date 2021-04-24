@@ -19,6 +19,17 @@
         loop_var: peg_number
       when: pegs is not defined
 
+    - debug:
+        msg: >
+          To play the game you have to run the playbook successively using the
+          option --extra-var to define the guess variable.
+          For example: --extra-var "guess=blue,black,yellow,red"
+      when: 'guess is not defined'
+
+    - set_fact:
+        __guess: "{{  guess.split(',') }}"
+      when: 'guess is defined'
+
     - name: Increase turn number.
       set_fact:
         turns: "{{ turns | default(0) | int + 1 }}"
