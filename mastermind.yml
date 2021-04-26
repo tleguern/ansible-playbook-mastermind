@@ -37,6 +37,16 @@
         quiet: yes
       when: 'guess is defined'
 
+    - assert:
+        that:
+          - __guess[0] in colours
+          - __guess[1] in colours
+          - __guess[2] in colours
+          - __guess[3] in colours
+        fail_msg: "Sorry, only {{ colours }} are allowed."
+        quiet: yes
+      when: 'guess is defined'
+
     - include_tasks: bull-or-cow.yml
       when: 'guess is defined'
 
