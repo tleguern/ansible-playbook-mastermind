@@ -30,6 +30,13 @@
         __guess: "{{  guess.split(',') }}"
       when: 'guess is defined'
 
+    - assert:
+        that:
+          - (__guess|length) == 4
+        fail_msg: "Your guess should be structured as four components list separated by comma."
+        quiet: yes
+      when: 'guess is defined'
+
     - name: Increase turn number.
       set_fact:
         turns: "{{ turns | default(0) | int + 1 }}"
