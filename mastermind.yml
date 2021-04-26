@@ -37,13 +37,22 @@
         quiet: yes
       when: 'guess is defined'
 
+    - include_tasks: bull-or-cow.yml
+      when: 'guess is defined'
+
     - name: Increase turn number.
       set_fact:
         turns: "{{ turns | default(0) | int + 1 }}"
         cacheable: yes
+      when: 'guess is defined'
 
-    - name: It's the end!
-      file:
-        path: .facts/localhost
-        state: absent
-      when: 'turns | int == maxturns'
+    - debug:
+        msg: "Turn {{ turns }}: {{ bulls }} bulls and {{ cows }} cows"
+      when: 'guess is defined'
+
+    - include_tasks: the-end.yml
+      when:
+        - 'guess is defined'
+        - 'bulls | int == 4 or turns | int == maxturns'
+
+

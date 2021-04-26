@@ -1,0 +1,5 @@
+---
+- name: It's the end!
+  file:
+    path: .facts/localhost
+    state: absent
