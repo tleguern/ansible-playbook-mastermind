@@ -64,5 +64,3 @@
       when:
         - 'guess is defined'
         - 'bulls | int == 4 or turns | int == maxturns'
-
-
