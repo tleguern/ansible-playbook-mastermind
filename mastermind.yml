@@ -2,65 +2,8 @@
 - hosts: localhost
   gather_facts: no
   connection: local
-  vars:
-    colours:
-      - red
-      - green
-      - blue
-      - yellow
-      - black
-      - white
-    maxturns: 12
   tasks:
-    - name: Select the colour of four pegs.
-      include_tasks: peg-colour.yml
-      loop: [ 0, 1, 2, 3 ]
-      loop_control:
-        loop_var: peg_number
-      when: pegs is not defined
+    - name: Initialize the game.
+      include_tasks: init.yml
 
-    - debug:
-        msg: >
-          To play the game you have to run the playbook successively using the
-          option --extra-var to define the guess variable.
-          For example: --extra-var "guess=blue,black,yellow,red"
-      when: 'guess is not defined'
-
-    - set_fact:
-        __guess: "{{  guess.split(',') }}"
-      when: 'guess is defined'
-
-    - assert:
-        that:
-          - (__guess|length) == 4
-        fail_msg: "Your guess should be structured as four components list separated by comma."
-        quiet: yes
-      when: 'guess is defined'
-
-    - assert:
-        that:
-          - __guess[0] in colours
-          - __guess[1] in colours
-          - __guess[2] in colours
-          - __guess[3] in colours
-        fail_msg: "Sorry, only {{ colours }} are allowed."
-        quiet: yes
-      when: 'guess is defined'
-
-    - include_tasks: bull-or-cow.yml
-      when: 'guess is defined'
-
-    - name: Increase turn number.
-      set_fact:
-        turns: "{{ turns | default(0) | int + 1 }}"
-        cacheable: yes
-      when: 'guess is defined'
-
-    - debug:
-        msg: "Turn {{ turns }}: {{ bulls }} bulls and {{ cows }} cows"
-      when: 'guess is defined'
-
-    - include_tasks: the-end.yml
-      when:
-        - 'guess is defined'
-        - 'bulls | int == 4 or turns | int == maxturns'
+    - include_tasks: mastermind-tasks.yml
