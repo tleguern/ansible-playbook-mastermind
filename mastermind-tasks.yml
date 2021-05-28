@@ -28,8 +28,18 @@
           set_fact:
             turns: "{{ turns | int + 1 }}"
 
+        - name: Register input.
+          set_fact:
+            input_history: "{{ input_history + [ __guess ] }}"
+
         - debug:
-            msg: "Turn {{ turns }}: {{ bulls }} bulls and {{ cows }} cows"
+            msg: |
+              {% for input in input_history %}
+              Turn {{ loop.index }}: {% for guess in input %}|{{ guess|center(8) }}{% if loop.last %}|
+              {% endif %}{% endfor %}
+              {% endfor %}
+              ----
+              {{ bulls }} bulls and {{ cows }} cows
 
       rescue:
         - name: Error with colours.

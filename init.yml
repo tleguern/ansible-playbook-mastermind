@@ -12,6 +12,7 @@
     cows: 0
     turns: 0
     maxturns: 12
+    input_history: []
 
 - name: Select the colour of four pegs.
   include_tasks: peg-colour.yml
