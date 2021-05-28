@@ -55,7 +55,9 @@
       assert:
         that:
           - __guess[0] != pegs["0"]
-          - (__guess[0] == pegs["1"]) or (__guess[0] == pegs["2"]) or (__guess[0] == pegs["3"])
+          - (__guess[0] == pegs["1"] and __guess[1] != pegs["1"])
+             or (__guess[0] == pegs["2"] and __guess[2] != pegs["2"])
+             or (__guess[0] == pegs["3"] and __guess[3] != pegs["3"])
         fail_msg: "0"
         success_msg: "1"
         quiet: yes
@@ -66,7 +68,9 @@
       assert:
         that:
           - __guess[1] != pegs["1"]
-          - (__guess[1] == pegs["0"]) or (__guess[1] == pegs["2"]) or (__guess[1] == pegs["3"])
+          - (__guess[1] == pegs["0"] and __guess[1] != pegs["0"])
+             or (__guess[1] == pegs["2"] and __guess[2] != pegs["2"])
+             or (__guess[1] == pegs["3"] and __guess[3] != pegs["3"])
         fail_msg: "0"
         success_msg: "1"
         quiet: yes
@@ -77,7 +81,9 @@
       assert:
         that:
           - __guess[2] != pegs["2"]
-          - (__guess[2] == pegs["0"]) or (__guess[2] == pegs["1"]) or (__guess[2] == pegs["3"])
+          - (__guess[2] == pegs["0"] and __guess[1] != pegs["0"])
+             or (__guess[2] == pegs["1"] and __guess[2] != pegs["1"])
+             or (__guess[2] == pegs["3"] and __guess[3] != pegs["3"])
         fail_msg: "0"
         success_msg: "1"
         quiet: yes
@@ -88,7 +94,9 @@
       assert:
         that:
           - __guess[3] != pegs["3"]
-          - (__guess[3] == pegs["0"]) or (__guess[3] == pegs["1"]) or (__guess[3] == pegs["2"])
+          - (__guess[3] == pegs["0"] and __guess[1] != pegs["0"])
+             or (__guess[3] == pegs["1"] and __guess[1] != pegs["1"])
+             or (__guess[3] == pegs["2"] and __guess[1] != pegs["2"])
         fail_msg: "0"
         success_msg: "1"
         quiet: yes
