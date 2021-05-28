@@ -8,6 +8,8 @@
       - yellow
       - black
       - white
+    bulls: 0
+    cows: 0
     turns: 0
     maxturns: 12
 

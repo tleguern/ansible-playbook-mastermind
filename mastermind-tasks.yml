@@ -11,27 +11,35 @@
   block:
     - assert:
         that: (__guess|length) == 4
-        fail_msg: "Your guess should be structured as four components list separated by comma."
         quiet: yes
 
-    - assert:
-        that:
-          - __guess[0] in colours
-          - __guess[1] in colours
-          - __guess[2] in colours
-          - __guess[3] in colours
-        fail_msg: "Sorry, only {{ colours }} are allowed."
-        quiet: yes
-  ignore_errors: yes
+    - block:
+        - assert:
+            that:
+              - __guess[0] in colours
+              - __guess[1] in colours
+              - __guess[2] in colours
+              - __guess[3] in colours
+            quiet: yes
 
-- include_tasks: bull-or-cow.yml
+        - include_tasks: bull-or-cow.yml
 
-- name: Increase turn number.
-  set_fact:
-    turns: "{{ turns | int + 1 }}"
+        - name: Increase turn number.
+          set_fact:
+            turns: "{{ turns | int + 1 }}"
 
-- debug:
-    msg: "Turn {{ turns }}: {{ bulls }} bulls and {{ cows }} cows"
+        - debug:
+            msg: "Turn {{ turns }}: {{ bulls }} bulls and {{ cows }} cows"
+
+      rescue:
+        - name: Error with colours.
+          debug:
+            msg: "Sorry, only {{ colours }} are allowed."
+
+  rescue:
+    - name: Error with colours.
+      debug:
+        msg: "Your guess should be structured as four components list separated by comma."
 
 - include_tasks: mastermind-tasks.yml
   when:
