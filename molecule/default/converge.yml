@@ -1,0 +1,8 @@
+---
+- name: Converge
+  hosts: all
+  become: no
+  gather_facts: no
+
+- import_playbook: partie-1.yml
+- import_playbook: partie-2.yml

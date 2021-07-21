@@ -1,0 +1,70 @@
+---
+- hosts: all
+  become: no
+  gather_facts: no
+  vars:
+    pegs:
+      "0": white
+      "1": green
+      "2": green
+      "3": white
+  tasks:
+    - include_tasks: ../../bull-or-cow.yml
+      vars:
+        __guess:
+          - green
+          - green
+          - green
+          - green
+    - assert:
+        that:
+          - bulls|int == 2
+          - cows|int == 0
+
+    - include_tasks: ../../bull-or-cow.yml
+      vars:
+        __guess:
+          - green
+          - green
+          - white
+          - white
+    - assert:
+        that:
+          - bulls|int == 2
+          - cows|int == 2
+
+    - include_tasks: ../../bull-or-cow.yml
+      vars:
+        __guess:
+          - white
+          - white
+          - green
+          - green
+    - assert:
+        that:
+          - bulls|int == 2
+          - cows|int == 2
+
+    - include_tasks: ../../bull-or-cow.yml
+      vars:
+        __guess:
+          - green
+          - white
+          - white
+          - green
+    - assert:
+        that:
+          - bulls|int == 0
+          - cows|int == 4
+
+    - include_tasks: ../../bull-or-cow.yml
+      vars:
+        __guess:
+          - white
+          - green
+          - green
+          - blue
+    - assert:
+        that:
+          - bulls|int == 3
+          - cows|int == 0
