@@ -4,7 +4,20 @@ This project is attempt to bring the board game of of [Mastermind](https://en.wi
 
 The goal is to find a secret combination of four coloured pegs in a given number of turns (here twelve) by submitting guesses and analysing the answers.
 The game will display the result as a number of “bulls” (number of correctly guessed colours and positions) or “cows” (number of correctly guessed colours but incorrect positions).
-The algorithm is not yet perfect as the number of “cows“ can be incorrectly detected, giving hints to the player about the missing colours.
+
+At the end of each turn a summary of past guesses is displayed like this:
+
+```
+TASK [debug] *******************************************************************
+ok: [localhost] =>
+  msg: |-
+    Turn 1: |  red   |  red   |  red   |  red   |
+    Turn 2: |  red   |  blue  |  blue  |  blue  |
+    Turn 3: |  red   |  blue  |  blue  | black  |
+    Turn 4: |  red   |  blue  | black  |  blue  |
+    ----
+    4 bulls and 0 cows
+```
 
 ## How to play
 
