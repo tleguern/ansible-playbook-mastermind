@@ -7,76 +7,76 @@
         msg: "Artificial placement tests - set I"
 
     - block:
-      - set_fact:
-          pegs: { "0": red, "1": red, "2": red, "3": red }
-      - include_tasks: ../../bull-or-cow.yml
-        vars:
-          __guess:
-            - red
-            - red
-            - red
-            - red
-      - assert:
-          that:
-            - bulls|int == 4
-            - cows|int == 0
+        - set_fact:
+            pegs: { "0": red, "1": red, "2": red, "3": red }
+        - include_tasks: ../../bull-or-cow.yml
+          vars:
+            __guess:
+              - red
+              - red
+              - red
+              - red
+        - assert:
+            that:
+              - bulls|int == 4
+              - cows|int == 0
 
     - block:
-      - set_fact:
-          pegs: { "0": red, "1": red, "2": black, "3": red }
-      - include_tasks: ../../bull-or-cow.yml
-        vars:
-          __guess:
-            - red
-            - red
-            - red
-            - red
-      - assert:
-          that:
-            - bulls|int == 3
-            - cows|int == 0
+        - set_fact:
+            pegs: { "0": red, "1": red, "2": black, "3": red }
+        - include_tasks: ../../bull-or-cow.yml
+          vars:
+            __guess:
+              - red
+              - red
+              - red
+              - red
+        - assert:
+            that:
+              - bulls|int == 3
+              - cows|int == 0
 
     - block:
-      - set_fact:
-          pegs: { "0": red, "1": green, "2": black, "3": red }
-      - include_tasks: ../../bull-or-cow.yml
-        vars:
-          __guess:
-            - red
-            - red
-            - red
-            - red
-      - assert:
-          that:
-            - bulls|int == 2
-            - cows|int == 0
+        - set_fact:
+            pegs: { "0": red, "1": green, "2": black, "3": red }
+        - include_tasks: ../../bull-or-cow.yml
+          vars:
+            __guess:
+              - red
+              - red
+              - red
+              - red
+        - assert:
+            that:
+              - bulls|int == 2
+              - cows|int == 0
 
     - block:
-      - set_fact:
-          pegs: { "0": red, "1": green, "2": black, "3": yellow }
-      - include_tasks: ../../bull-or-cow.yml
-        vars:
-          __guess:
-            - red
-            - red
-            - red
-            - red
-      - assert:
-          that:
-            - bulls|int == 1
-            - cows|int == 0
+        - set_fact:
+            pegs: { "0": red, "1": green, "2": black, "3": yellow }
+        - include_tasks: ../../bull-or-cow.yml
+          vars:
+            __guess:
+              - red
+              - red
+              - red
+              - red
+        - assert:
+            that:
+              - bulls|int == 1
+              - cows|int == 0
 
     - block:
-      - set_fact:
-          pegs: { "0": blue, "1": green, "2": black, "3": yellow }
-      - include_tasks: ../../bull-or-cow.yml
-        vars:
-          __guess:
-            - red
-            - red
-            - red
-            - red
-      - assert:
-          that:
-            - bulls|int == 0
-            - cows|int == 0
+        - set_fact:
+            pegs: { "0": blue, "1": green, "2": black, "3": yellow }
+        - include_tasks: ../../bull-or-cow.yml
+          vars:
+            __guess:
+              - red
+              - red
+              - red
+              - red
+        - assert:
+            that:
+              - bulls|int == 0
+              - cows|int == 0

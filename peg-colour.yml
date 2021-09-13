@@ -1,7 +1,7 @@
 ---
 - name: Determine peg colour.
   set_fact:
-    peg: "{ '{{ peg_number }}': '{{ colours | random }}' }" 
+    peg: "{ '{{ peg_number }}': '{{ colours | random }}' }"
 
 - name: Register the new peg.
   set_fact:
