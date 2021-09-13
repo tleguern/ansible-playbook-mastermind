@@ -9,6 +9,12 @@
       "2": green
       "3": red
   tasks:
+    - debug:
+        msg: "Real play through - set I"
+
+    - set_fact:
+        pegs: { "0": red, "1": black, "2": green, "3": red }
+
     - include_tasks: ../../bull-or-cow.yml
       vars:
         __guess:

@@ -2,13 +2,13 @@
 - hosts: all
   become: no
   gather_facts: no
-  vars:
-    pegs:
-      "0": white
-      "1": green
-      "2": green
-      "3": white
   tasks:
+    - debug:
+        msg: "Real play through - set I"
+
+    - set_fact:
+        pegs: { "0": white, "1": green, "2": green, "3": white }
+
     - include_tasks: ../../bull-or-cow.yml
       vars:
         __guess:
