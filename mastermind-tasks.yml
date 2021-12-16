@@ -1,25 +1,25 @@
 ---
 - name: Ask.
   pause:
-    prompt: "What is your guess?"
-  register: guess
+    prompt: "What is your guesses?"
+  register: guesses
 
 - set_fact:
-    __guess: "{{  guess.user_input.split(',') }}"
+    __guesses: "{{  guesses.user_input.split(',') }}"
 
 - name: Verify user input.
   block:
     - assert:
-        that: (__guess|length) == 4
+        that: (__guesses|length) == 4
         quiet: yes
 
     - block:
         - assert:
             that:
-              - __guess[0] in colours
-              - __guess[1] in colours
-              - __guess[2] in colours
-              - __guess[3] in colours
+              - __guesses[0] in colours
+              - __guesses[1] in colours
+              - __guesses[2] in colours
+              - __guesses[3] in colours
             quiet: yes
 
         - include_tasks: bull-or-cow.yml
@@ -30,12 +30,12 @@
 
         - name: Register input.
           set_fact:
-            input_history: "{{ input_history + [ __guess ] }}"
+            input_history: "{{ input_history + [ __guesses ] }}"
 
         - debug:
             msg: |
               {% for input in input_history %}
-              Turn {{ loop.index }}: {% for guess in input %}|{{ guess|center(8) }}{% if loop.last %}|
+              Turn {{ loop.index }}: {% for guesses in input %}|{{ guesses|center(8) }}{% if loop.last %}|
               {% endif %}{% endfor %}
               {% endfor %}
               ----
@@ -49,7 +49,7 @@
   rescue:
     - name: Error with colours.
       debug:
-        msg: "Your guess should be structured as four components list separated by comma."
+        msg: "Your guesses should be structured as four components list separated by comma."
 
 - include_tasks: mastermind-tasks.yml
   when:
