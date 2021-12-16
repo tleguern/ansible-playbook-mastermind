@@ -2,24 +2,24 @@
 - name: Ask.
   pause:
     prompt: "What is your guesses?"
-  register: guesses
+  register: __guesses
 
 - set_fact:
-    __guesses: "{{  guesses.user_input.split(',') }}"
+    guesses: "{{ __guesses.user_input.split(',') }}"
 
 - name: Verify user input.
   block:
     - assert:
-        that: (__guesses|length) == 4
+        that: (guesses|length) == 4
         quiet: yes
 
     - block:
         - assert:
             that:
-              - __guesses[0] in colours
-              - __guesses[1] in colours
-              - __guesses[2] in colours
-              - __guesses[3] in colours
+              - guesses[0] in colours
+              - guesses[1] in colours
+              - guesses[2] in colours
+              - guesses[3] in colours
             quiet: yes
 
         - include_tasks: bull-or-cow.yml
@@ -30,7 +30,7 @@
 
         - name: Register input.
           set_fact:
-            input_history: "{{ input_history + [ __guesses ] }}"
+            input_history: "{{ input_history + [ guesses ] }}"
 
         - debug:
             msg: |

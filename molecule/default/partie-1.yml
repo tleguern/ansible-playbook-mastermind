@@ -11,7 +11,7 @@
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        __guesses:
+        guesses:
           - green
           - green
           - green
@@ -23,7 +23,7 @@
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        __guesses:
+        guesses:
           - green
           - green
           - white
@@ -35,7 +35,7 @@
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        __guesses:
+        guesses:
           - white
           - white
           - green
@@ -47,7 +47,7 @@
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        __guesses:
+        guesses:
           - green
           - white
           - white
@@ -59,7 +59,7 @@
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        __guesses:
+        guesses:
           - white
           - green
           - green

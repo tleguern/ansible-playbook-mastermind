@@ -11,7 +11,7 @@
             pegs: { "0": red, "1": red, "2": red, "3": red }
         - include_tasks: ../../bull-or-cow.yml
           vars:
-            __guesses:
+            guesses:
               - red
               - red
               - red
@@ -26,7 +26,7 @@
             pegs: { "0": red, "1": red, "2": black, "3": red }
         - include_tasks: ../../bull-or-cow.yml
           vars:
-            __guesses:
+            guesses:
               - red
               - red
               - red
@@ -41,7 +41,7 @@
             pegs: { "0": red, "1": green, "2": black, "3": red }
         - include_tasks: ../../bull-or-cow.yml
           vars:
-            __guesses:
+            guesses:
               - red
               - red
               - red
@@ -56,7 +56,7 @@
             pegs: { "0": red, "1": green, "2": black, "3": yellow }
         - include_tasks: ../../bull-or-cow.yml
           vars:
-            __guesses:
+            guesses:
               - red
               - red
               - red
@@ -71,7 +71,7 @@
             pegs: { "0": blue, "1": green, "2": black, "3": yellow }
         - include_tasks: ../../bull-or-cow.yml
           vars:
-            __guesses:
+            guesses:
               - red
               - red
               - red
