@@ -2,18 +2,12 @@
 - hosts: all
   become: no
   gather_facts: no
-  vars:
-    pegs:
-      "0": red
-      "1": black
-      "2": green
-      "3": red
   tasks:
     - debug:
-        msg: "Real play through - set I"
+        msg: "Real play through - set II"
 
     - set_fact:
-        pegs: { "0": red, "1": black, "2": green, "3": red }
+        pegs: [ "red", "black", "green", "red" ]
 
     - include_tasks: ../../bull-or-cow.yml
       vars:

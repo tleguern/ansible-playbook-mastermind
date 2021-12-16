@@ -8,7 +8,7 @@
 
     - block:
         - set_fact:
-            pegs: { "0": red, "1": red, "2": red, "3": red }
+            pegs: [ "red", "red", "red", "red" ]
         - include_tasks: ../../bull-or-cow.yml
           vars:
             guesses:
@@ -23,7 +23,7 @@
 
     - block:
         - set_fact:
-            pegs: { "0": red, "1": red, "2": black, "3": red }
+            pegs: [ "red", "red", "black", "red" ]
         - include_tasks: ../../bull-or-cow.yml
           vars:
             guesses:
@@ -38,7 +38,7 @@
 
     - block:
         - set_fact:
-            pegs: { "0": red, "1": green, "2": black, "3": red }
+            pegs: [ "red", "green", "black", "red" ]
         - include_tasks: ../../bull-or-cow.yml
           vars:
             guesses:
@@ -53,7 +53,7 @@
 
     - block:
         - set_fact:
-            pegs: { "0": red, "1": green, "2": black, "3": yellow }
+            pegs: [ "red", "green", "black", "yellow" ]
         - include_tasks: ../../bull-or-cow.yml
           vars:
             guesses:
@@ -68,7 +68,7 @@
 
     - block:
         - set_fact:
-            pegs: { "0": blue, "1": green, "2": black, "3": yellow }
+            pegs: [ "blue", "green", "black", "yellow" ]
         - include_tasks: ../../bull-or-cow.yml
           vars:
             guesses:
