@@ -1,53 +1,16 @@
 ---
-- name: Check for bulls
-  block:
-    - name: First peg
-      assert:
-        that:
-          - guesses[0] == pegs[0]
-        fail_msg: "0"
-        success_msg: "1"
-        quiet: yes
-      failed_when: false
-      register: peg1
+- name: Reinitialise variables.
+  set_fact:
+    bulls: 0
+    cows: 0
 
-    - name: Second peg
-      assert:
-        that:
-          - guesses[1] == pegs[1]
-        fail_msg: "0"
-        success_msg: "1"
-        quiet: yes
-      failed_when: false
-      register: peg2
-
-    - name: Third peg
-      assert:
-        that:
-          - guesses[2] == pegs[2]
-        fail_msg: "0"
-        success_msg: "1"
-        quiet: yes
-      failed_when: false
-      register: peg3
-
-    - name: Fourth peg
-      assert:
-        that:
-          - guesses[3] == pegs[3]
-        fail_msg: "0"
-        success_msg: "1"
-        quiet: yes
-      failed_when: false
-      register: "peg4"
-
-    - name: Compute bulls
-      set_fact:
-        bulls_list: "[{{ peg1.msg }}, {{ peg2.msg }}, {{ peg3.msg }}, {{ peg4.msg }}]"
-
-    - name: Number of bulls
-      set_fact:
-        bulls: "{{ bulls_list | sum }}"
+- name: Check for bulls.
+  set_fact:
+    bulls: "{{ bulls|int + (guesses[n] == pegs[n])|ternary(1, 0) }}"
+  loop: "{{ guesses }}"
+  loop_control:
+    index_var: n
+    label: peg
 
 - name: Check for cows
   block:
