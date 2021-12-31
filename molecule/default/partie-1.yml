@@ -11,60 +11,45 @@
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        guesses:
-          - green
-          - green
-          - green
-          - green
-    - assert:
+        guesses: [ "green", "green", "green", "green" ]
+    - name: Turn I
+      assert:
         that:
           - bulls|int == 2
           - cows|int == 0
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        guesses:
-          - green
-          - green
-          - white
-          - white
-    - assert:
+        guesses: [ "green", "green", "white", "white" ]
+    - name: Turn II
+      assert:
         that:
           - bulls|int == 2
           - cows|int == 2
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        guesses:
-          - white
-          - white
-          - green
-          - green
-    - assert:
+        guesses: [ "white", "white", "green", "green"  ]
+    - name: Turn III
+      assert:
         that:
           - bulls|int == 2
           - cows|int == 2
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        guesses:
-          - green
-          - white
-          - white
-          - green
-    - assert:
+        guesses: [ "green", "white", "white", "green"  ]
+    - name: Turn IV
+      assert:
         that:
           - bulls|int == 0
           - cows|int == 4
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        guesses:
-          - white
-          - green
-          - green
-          - blue
-    - assert:
+        guesses: [ "white",  "green",  "green", "blue" ]
+    - name: Turn V
+      assert:
         that:
           - bulls|int == 3
           - cows|int == 0

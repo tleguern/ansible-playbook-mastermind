@@ -9,14 +9,10 @@
     - block:
         - set_fact:
             pegs: [ "red", "red", "red", "red" ]
+            guesses: [ "red", "red", "red", "red" ]
         - include_tasks: ../../bull-or-cow.yml
-          vars:
-            guesses:
-              - red
-              - red
-              - red
-              - red
-        - assert:
+        - name: Four bulls.
+          assert:
             that:
               - bulls|int == 4
               - cows|int == 0
@@ -24,14 +20,10 @@
     - block:
         - set_fact:
             pegs: [ "red", "red", "black", "red" ]
+            guesses: [ "red", "red", "red", "red" ]
         - include_tasks: ../../bull-or-cow.yml
-          vars:
-            guesses:
-              - red
-              - red
-              - red
-              - red
-        - assert:
+        - name: Three bulls.
+          assert:
             that:
               - bulls|int == 3
               - cows|int == 0
@@ -39,14 +31,10 @@
     - block:
         - set_fact:
             pegs: [ "red", "green", "black", "red" ]
+            guesses: [ "red", "red", "red", "red" ]
         - include_tasks: ../../bull-or-cow.yml
-          vars:
-            guesses:
-              - red
-              - red
-              - red
-              - red
-        - assert:
+        - name: Two bulls.
+          assert:
             that:
               - bulls|int == 2
               - cows|int == 0
@@ -54,14 +42,10 @@
     - block:
         - set_fact:
             pegs: [ "red", "green", "black", "yellow" ]
+            guesses: [ "red", "red", "red", "red" ]
         - include_tasks: ../../bull-or-cow.yml
-          vars:
-            guesses:
-              - red
-              - red
-              - red
-              - red
-        - assert:
+        - name: One bull.
+          assert:
             that:
               - bulls|int == 1
               - cows|int == 0
@@ -70,13 +54,8 @@
         - set_fact:
             pegs: [ "blue", "green", "black", "yellow" ]
         - include_tasks: ../../bull-or-cow.yml
-          vars:
-            guesses:
-              - red
-              - red
-              - red
-              - red
-        - assert:
+        - name: Zero bulls.
+          assert:
             that:
               - bulls|int == 0
               - cows|int == 0

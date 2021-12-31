@@ -1,0 +1,51 @@
+---
+- hosts: all
+  become: no
+  gather_facts: no
+  tasks:
+    - debug:
+        msg: "Artificial placement tests - set II"
+
+    - block:
+        - set_fact:
+            pegs: [ "white", "red", "red", "red" ]
+            guesses: [ "blue", "blue", "blue", "white" ]
+        - include_tasks: ../../bull-or-cow.yml
+        - name: One peg, one guess, one cow.
+          assert:
+            that:
+              - bulls|int == 0
+              - cows|int == 1
+
+    - block:
+        - set_fact:
+            pegs: [ "white", "white", "red", "red" ]
+            guesses: [ "blue", "blue", "blue", "white" ]
+        - include_tasks: ../../bull-or-cow.yml
+        - name: Two pegs, one guess, one cow.
+          assert:
+            that:
+              - bulls|int == 0
+              - cows|int == 1
+
+    - block:
+        - set_fact:
+             pegs: [ "white", "white", "red", "red" ]
+             guesses: [ "blue", "blue", "white", "white" ]
+        - include_tasks: ../../bull-or-cow.yml
+        - name: Two pegs, two guesses, two cows.
+          assert:
+            that:
+              - bulls|int == 0
+              - cows|int == 2
+
+    - block:
+        - set_fact:
+             pegs: [ "white", "red", "red", "red" ]
+             guesses: [ "blue", "blue", "white", "white" ]
+        - include_tasks: ../../bull-or-cow.yml
+        - name: One peg, two guesses, one cow.
+          assert:
+            that:
+              - bulls|int == 0
+              - cows|int == 1

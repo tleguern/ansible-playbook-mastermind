@@ -1,0 +1,12 @@
+---
+- when: guess in pegs_without_bulls
+  block:
+    - name: Do we got a cow?
+      set_fact:
+        cows: "{{ cows|int + 1 }}"
+
+    - name: Remove cow.
+      set_fact:
+        pegs_without_bulls: |
+          {% set _ = pegs_without_bulls.remove(guess) %}
+          {{ pegs_without_bulls }}

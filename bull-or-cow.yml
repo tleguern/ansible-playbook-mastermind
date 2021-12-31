@@ -3,73 +3,28 @@
   set_fact:
     bulls: 0
     cows: 0
+    not_bulls: []
+    pegs_without_bulls: []
+    guesses_without_bulls: []
 
 - name: Check for bulls.
   set_fact:
     bulls: "{{ bulls|int + (guesses[n] == pegs[n])|ternary(1, 0) }}"
+    not_bulls: "{{ not_bulls + (guesses[n] != pegs[n])|ternary([ n ], [])  }}"
   loop: "{{ guesses }}"
   loop_control:
     index_var: n
     label: peg
 
-- name: Check for cows
-  block:
-    - name: First peg
-      assert:
-        that:
-          - guesses[0] != pegs[0]
-          - (guesses[0] == pegs[1] and guesses[1] != pegs[1])
-             or (guesses[0] == pegs[2] and guesses[2] != pegs[2])
-             or (guesses[0] == pegs[3] and guesses[3] != pegs[3])
-        fail_msg: "0"
-        success_msg: "1"
-        quiet: yes
-      failed_when: false
-      register: peg1
+- name: Remove bulls from pegs and guesses.
+  set_fact:
+    guesses_without_bulls: "{{ not_bulls | map('extract', guesses) | list }}"
+    pegs_without_bulls: "{{ not_bulls | map('extract', pegs) | list }}"
 
-    - name: Second peg
-      assert:
-        that:
-          - guesses[1] != pegs[1]
-          - (guesses[1] == pegs[0] and guesses[0] != pegs[0])
-             or (guesses[1] == pegs[2] and guesses[2] != pegs[2])
-             or (guesses[1] == pegs[3] and guesses[3] != pegs[3])
-        fail_msg: "0"
-        success_msg: "1"
-        quiet: yes
-      failed_when: false
-      register: peg2
-
-    - name: Third peg
-      assert:
-        that:
-          - guesses[2] != pegs[2]
-          - (guesses[2] == pegs[0] and guesses[0] != pegs[0])
-             or (guesses[2] == pegs[1] and guesses[1] != pegs[1])
-             or (guesses[2] == pegs[3] and guesses[3] != pegs[3])
-        fail_msg: "0"
-        success_msg: "1"
-        quiet: yes
-      failed_when: false
-      register: peg3
-
-    - name: Fourth peg
-      assert:
-        that:
-          - guesses[3] != pegs[3]
-          - (guesses[3] == pegs[0] and guesses[0] != pegs[0])
-             or (guesses[3] == pegs[1] and guesses[1] != pegs[1])
-             or (guesses[3] == pegs[2] and guesses[2] != pegs[2])
-        fail_msg: "0"
-        success_msg: "1"
-        quiet: yes
-      failed_when: false
-      register: peg4
-
-    - name: Compute cows
-      set_fact:
-        cows_list: "[{{ peg1.msg }}, {{ peg2.msg }}, {{ peg3.msg }}, {{ peg4.msg }}]"
-
-    - name: Number of cows
-      set_fact:
-        cows: "{{ cows_list | sum }}"
+- name: Check for cows.
+  include_tasks: cow.yml
+  loop: "{{ guesses_without_bulls }}"
+  loop_control:
+    index_var: n
+    loop_var: guess
+    label: peg

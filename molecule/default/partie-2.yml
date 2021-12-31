@@ -11,25 +11,18 @@
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        guesses:
-          - black
-          - green
-          - red
-          - red
-    - assert:
+        guesses: [ "black", "green", "red", "red" ]
+    - name: Turn I
+      assert:
         that:
           - bulls|int == 1
           - cows|int == 3
 
     - include_tasks: ../../bull-or-cow.yml
       vars:
-        guesses:
-          - red
-          - green
-          - black
-          - red
-
-    - assert:
+        guesses: [ "red", "green", "black", "red" ]
+    - name: Turn II
+      assert:
         that:
           - bulls|int == 2
           - cows|int == 2
