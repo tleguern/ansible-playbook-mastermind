@@ -32,6 +32,10 @@ $ ansible-playbook mastermind.yml
 ...
 ```
 
+Here is an asciicast recording:
+
+[![asciicast](https://asciinema.org/a/459335.svg)](https://asciinema.org/a/459335)
+
 ## License
 
 ISC
