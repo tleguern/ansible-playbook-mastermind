@@ -1,7 +1,7 @@
 ---
 - name: Ask.
   pause:
-    prompt: "What is your guesses?"
+    prompt: "What is your guess?"
   register: __guesses
 
 - set_fact:
